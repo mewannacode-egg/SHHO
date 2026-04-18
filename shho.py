@@ -10,10 +10,7 @@ from typing import Optional, List, Union, Generator, Any
 import inspect
 
 
-# ─────────────────────────────────────────────
 # INTERNAL HELPERS
-# ─────────────────────────────────────────────
-
 class _Internal:
     """
     Internal helper functions.
@@ -32,10 +29,7 @@ class _Internal:
         return fallback
 
 
-# ─────────────────────────────────────────────
 # FILE API (public)
-# ─────────────────────────────────────────────
-
 class File:
 
     @staticmethod
@@ -168,10 +162,8 @@ class File:
             return _Internal.handle_error(e, errors, False)
 
 
-# ─────────────────────────────────────────────
-# FOLDER API
-# ─────────────────────────────────────────────
 
+# FOLDER
 class Folder:
 
     @staticmethod
@@ -184,11 +176,6 @@ class Folder:
             return True
         except Exception as e:
             return _Internal.handle_error(e, errors, False)
-
-import os
-import shutil
-
-class Folder:
 
     @staticmethod
     def delete(src: str, mode: str = "perm", confirm: bool = False, errors: bool = False):
@@ -263,10 +250,7 @@ class Folder:
             print(e)
             return []
 
-# ─────────────────────────────────────────────
-# PATH API
-# ─────────────────────────────────────────────
-
+# PATH 
 class Path:
 
     @staticmethod
@@ -342,10 +326,7 @@ class Path:
             print(e)
             return []
         
-# ─────────────────────────────────────────────
-# SYSTEM LAYER ()))))))))))))))))
-# ─────────────────────────────────────────────
-
+# SYSTEM
 class System:
     @staticmethod
     def run(src: str, confirm: bool = False, errors: bool = False):
