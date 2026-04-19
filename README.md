@@ -11,9 +11,13 @@ Developer Utilities: Built-in tools for version tracking and function discovery.
 Install the latest version (0.1.1) via pip:
 pip install shho --upgrade
 
-# Quick Start
-Python
+# Quick Demo
 from shho import fle, folder, path, system
+file.create("test.py")
+file.write("test.py", "print('Hello World!'", mode="overwrite")
+
+system.run("test.py")
+output: Hello World!
 
 # Create a file easily
 file.create("hello.txt", "Hello from SHHO!").
