@@ -31,7 +31,7 @@ Refined file handling logic for better reliability.
 Why use SHHO?
 Standard Python system calls can be intimidating for beginners. SHHO acts as a bridge, allowing you to focus on building your project.
 
-# --LINKS-- #
+# -------LINKS------- #
 # source code
 https://raw.githubusercontent.com/mewannacode-egg/SHHO/refs/heads/main/shho.py
 # documents
