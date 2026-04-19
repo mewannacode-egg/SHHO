@@ -1,3 +1,4 @@
+# About
 SHHO is a beginner-friendly Python wrapper designed to simplify os and subprocess calls into human-readable functions. It provides a safer, more intuitive way to handle files and system operations without the complexity of standard libraries.
 
 Official Discord: https://discord.gg/B9fGhbPGkP
