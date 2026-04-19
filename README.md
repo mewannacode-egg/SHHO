@@ -8,7 +8,7 @@ Human-Readable Syntax: Replace dense os code with clear, simple commands.
 Developer Utilities: Built-in tools for version tracking and function discovery.
 
 # Installation
-Install the latest version (0.2.0) via pip:
+Install the latest version (0.1.1) via pip:
 pip install shho --upgrade
 
 # Quick Start
