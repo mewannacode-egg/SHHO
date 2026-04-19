@@ -14,7 +14,7 @@ import inspect
 class _Internal:
     """
     Internal helper functions.
-    Not part of public API.
+    Not for the (re) public.
     """
 
     @staticmethod
