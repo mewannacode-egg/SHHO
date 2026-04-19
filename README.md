@@ -5,8 +5,6 @@ Official Discord: https://discord.gg/B9fGhbPGkP
 # Features
 Human-Readable Syntax: Replace dense os code with clear, simple commands.
 
-Security First: Integrated AST (Abstract Syntax Tree) checks to scan for dangerous operations or obfuscated code.
-
 Developer Utilities: Built-in tools for version tracking and function discovery.
 
 # Installation
