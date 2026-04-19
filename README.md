@@ -23,7 +23,7 @@ system.run("test.py")
 output: Hello World!
 
 # Create a file easily
-file.create("hello.txt", "Hello from SHHO!").
+file.create("hello.txt").
 
 Refined file handling logic for better reliability.
 
@@ -42,3 +42,4 @@ https://raw.githubusercontent.com/mewannacode-egg/SHHO/refs/heads/main/documents
 -First version ever! May contain bugs, i hope you can send me feedback!!
 # ver 0.1.1:
 -This version fixes some bugs.
+-added folder.compress(src)
