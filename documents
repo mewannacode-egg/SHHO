@@ -17,7 +17,7 @@ Folder.empty("temp_folder")                 # Deletes all the contents inside th
 Folder.delete("old_project")                # Deletes the entire directory
 
 # path
-Path.exists("test.json")                  # Returns True if path exists
+Path.exists("test.json")                    # Returns True if path exists
 Path.copy("photo.jpg", "backup/photo.jpg")  # Copies file or folder to destination
 Path.move("draft.txt", "project/draft.txt")   # Moves/renames file or folder
 Path.info("document.pdf")                   # Returns dict with size, type, and dates
