@@ -18,10 +18,6 @@ class _Internal:
     """
 
     @staticmethod
-    def normalize(path: str) -> str:
-        return os.path.abspath(path)
-
-    @staticmethod
     def handle_error(error: Exception, errors: bool, fallback=None):
         if errors:
             raise error
@@ -125,17 +121,17 @@ class File:
     @staticmethod
     def write(src: str, content: str, mode: str = "overwrite", line: int = None, errors: bool = False):
         try:
-            if mode == "overwrite":
+            if mode == "overwrite" or "ow":
                 with open(src, "w", encoding="utf-8") as f:
                     f.write(content + "\n")
                 return True
 
-            if mode == "append":
+            if mode == "append" or "a":
                 with open(src, "a", encoding="utf-8") as f:
                     f.write(content + "\n")
                 return True
 
-            if mode == "line":
+            if mode == "line" or "l":
                 if line is None or line <= 0:
                     raise ValueError("line must be a positive integer when mode='line'")
 
@@ -192,11 +188,11 @@ class Folder:
                 if input(prompt).lower() != "y":
                     return False
 
-            if mode == "perm":
+            if mode == "perm" or "permanent" or "p":
                 shutil.rmtree(src)
                 return True
 
-            if mode == "trash":
+            if mode == "trash" or "t":
                 trash_dir = ".trash"
                 os.makedirs(trash_dir, exist_ok=True)
 
@@ -328,6 +324,7 @@ class Path:
         
 # SYSTEM
 class System:
+    
     @staticmethod
     def run(src: str, confirm: bool = False, errors: bool = False):
         try:
@@ -380,9 +377,17 @@ class System:
         return os.getenv(key, default)
 
 
+# to see what functions the module has run this.
 class Check:
-    def show_fs_functions():
-        targets = [File, Folder, Path, System, _Internal]
+    def show_shhow_functions(target="All"):
+        '''
+        Targets: All, File, Folder, System, Path
+        '''
+        if targets == "All":
+            targets = [File, Folder, System, Path]
+
+        else:
+            targets = [target]
 
         for cls in targets:
             print(f"\n📦 {cls.__name__}")
@@ -393,7 +398,7 @@ class Check:
                     if not name.startswith("_"):
                         print(f"🔹 {name}")
 
-file, fl = File
-folder, fd = Folder
-path, p = path
-system, sys, s = System
+file = File
+folder = Folder
+path = Path
+system = System
