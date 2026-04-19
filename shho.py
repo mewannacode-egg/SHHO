@@ -8,6 +8,7 @@ import subprocess
 import sys
 from typing import Optional, List, Union, Generator, Any
 import inspect
+import datetime
 
 
 # INTERNAL HELPERS
@@ -121,17 +122,17 @@ class File:
     @staticmethod
     def write(src: str, content: str, mode: str = "overwrite", line: int = None, errors: bool = False):
         try:
-            if mode == "overwrite" or "ow":
+            if mode in ["overwrite", "ow"]:
                 with open(src, "w", encoding="utf-8") as f:
                     f.write(content + "\n")
                 return True
 
-            if mode == "append" or "a":
+            if mode in ["append", "a"]:
                 with open(src, "a", encoding="utf-8") as f:
                     f.write(content + "\n")
                 return True
 
-            if mode == "line" or "l":
+            if mode in ["line", "l"]:
                 if line is None or line <= 0:
                     raise ValueError("line must be a positive integer when mode='line'")
 
@@ -178,9 +179,9 @@ class Folder:
         try:
             if not confirm:
 
-                if mode == "perm":
+                if mode in ["perm", "permanently", "p"]:
                     prompt = f"Permanently delete folder '{src}'? y/n: "
-                elif mode == "trash":
+                elif mode == ["trash", "t"]:
                     prompt = f"Move folder '{src}' to trash? y/n: "
                 else:
                     raise ValueError("mode must be 'trash' or 'perm'")
@@ -188,11 +189,11 @@ class Folder:
                 if input(prompt).lower() != "y":
                     return False
 
-            if mode == "perm" or "permanent" or "p":
+            if mode in ["perm", "permanently", "p"]:
                 shutil.rmtree(src)
                 return True
 
-            if mode == "trash" or "t":
+            if mode in ["trash", "t"]:
                 trash_dir = ".trash"
                 os.makedirs(trash_dir, exist_ok=True)
 
@@ -203,7 +204,6 @@ class Folder:
                 return True
 
             return False
-
         except Exception as e:
             return _Internal.handle_error(e, errors, False)
 
@@ -245,6 +245,12 @@ class Folder:
         except Exception as e:
             print(e)
             return []
+
+    @staticmethod
+    def compress(src: str, output_name: Optional[str] = None):
+        output = output_name or src
+        shutil.make_archive(output, 'zip', src)
+        return f"{output}.zip"
 
 # PATH 
 class Path:
@@ -322,6 +328,16 @@ class Path:
             print(e)
             return []
         
+    @staticmethod
+    def backup(src: str, backup_dir: str = "backups", errors: bool = False):
+        try:
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            name = os.path.basename(src)
+            dst = os.path.join(backup_dir, f"{name}_{timestamp}.bak")
+            return Path.copy(src, dst)
+        except Exception as e:
+            return _Internal.handle_error(e, errors, False)
+
 # SYSTEM
 class System:
     
@@ -379,24 +395,19 @@ class System:
 
 # to see what functions the module has run this.
 class Check:
-    def show_shhow_functions(target="All"):
-        '''
-        Targets: All, File, Folder, System, Path
-        '''
+    @staticmethod
+    def show_funcs(targets="All"): # FIXED VARIABLE NAME
         if targets == "All":
             targets = [File, Folder, System, Path]
-
         else:
-            targets = [target]
+            targets = [targets] if not isinstance(targets, list) else targets
 
         for cls in targets:
             print(f"\n📦 {cls.__name__}")
-            print("-" * 30)
-
+            print("-" * 20)
             for name, obj in inspect.getmembers(cls):
-                if inspect.isfunction(obj) or inspect.ismethod(obj):
-                    if not name.startswith("_"):
-                        print(f"🔹 {name}")
+                if (inspect.isfunction(obj) or inspect.ismethod(obj)) and not name.startswith("_"):
+                    print(f"🔹 {name}")
 
 file = File
 folder = Folder
